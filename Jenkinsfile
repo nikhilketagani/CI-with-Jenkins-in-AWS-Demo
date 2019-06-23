@@ -1,6 +1,7 @@
-node {
+node('jenkinsslave22') {
     try {
       def mvnHome
+      currentBuild.result?:'SUCCESS'
      stage('Preparation') { // for display purposes
        //Get some code from a GitHub repository
       git 'https://github.com/nikhilketagani/CI-with-Jenkins-in-AWS-Demo.git'
@@ -31,28 +32,49 @@ node {
 }
 
 stage('Build Image & Push to Docker'){
-node('jenkinsslave22'){
-echo "docker -version"
+
+//echo "docker -version"
+//sh "docker pull jenkins/jenkins"
+ withEnv(["MVN_HOME=$mvnHome"]) {
+          if (isUnix()) {
+             sh '"$MVN_HOME/bin/mvn" -Dmaven.test.failure.ignore clean install' ;
+             
+          } else {
+             bat(/"%MVN_HOME%\bin\mvn" -Dmaven.test.failure.ignore clean install/)
+            
+          }
+       }
+sh 'cp /var/lib/jenkins/workspace/pipeline/project/target/project-1.0-RAMA.war .'	   
+	   
+ sh 'docker build -t nikhilketagani/tomcatwar:${BUILD_NUMBER} .' 
+ sh 'docker image ls'
+ withCredentials([usernamePassword(credentialsId: 'b6a33171-7108-4d7c-b94f-5c533b4d3af6', passwordVariable: 'password', usernameVariable: 'username')]) {
+    // some block
+	sh 'docker login -u=${username}  -p=${password}'
+	sh 'docker push nikhilketagani/tomcatwar:${BUILD_NUMBER}'
+}
 
 }
 }
-}
+
 catch(exc){
-     if (currentBuild.result == 'UNSTABLE') {
-            mail to: 'team@example.com',
-             subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-             body: "Something is wrong with ${env.BUILD_URL}"
-        }
+    currentBuild.result = 'FAILURE'
 		throw exc 
 }
         finally {
-     if (currentBuild.result == 'SUCCESS') {
+     if (currentBuild.result == 'SUCCESS'||currentBuild.result == null) {
             mail to: 'ksnnarsy@gmail.com',
-             subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-             body: "pipeline is successful ${env.BUILD_URL}"
+             subject: "$JOB_NAME - Build # $BUILD_NUMBER - SUCCESS!",
+             body: "pipeline is successfully run. $JOB_NAME - Build # $BUILD_NUMBER - SUCCESS .Check console output at $BUILD_URL to view the results."
         } 
+         if (currentBuild.result == 'FAILURE') {
+            mail to: 'ksnnarsy@gmail.com',
+             subject: "$JOB_NAME - Build # $BUILD_NUMBER - FAILURE!",
+             body: "Something is wrong with $JOB_NAME - Build # $BUILD_NUMBER - FAILURE! .Check console output at $BUILD_URL to view the results."
+        }
+          
 }
 
  }
  
-
+ 
