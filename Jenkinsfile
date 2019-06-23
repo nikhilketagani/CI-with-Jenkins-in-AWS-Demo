@@ -62,7 +62,7 @@ sh 'kubectl version'
 		    //sh 'kubectl delete -f tomcatwardeployment.yaml'
 		    //sh 'kubectl create -f tomcatwardeployment.yaml'
 		    //sh 'kubectl create -f tomcatwarservice.yaml'
-		    sh 'kubectl set image deployments/tomcatwar-deployment tomcatwar-conatiner=nikhilketagani/tomcatwar'
+		    sh 'kubectl set image deployments/tomcatwar-deployment tomcatwar-conatiner=nikhilketagani/tomcatwar:${BUILD_NUMBER}'
 		    sh 'kubectl rollout status deployment tomcatwar-deployment'
 }
 }
