@@ -34,7 +34,8 @@ stage('Build Image & Push to Docker'){
 node('jenkinsslave22'){
 echo "docker -version"
 
-
+}
+}
 }
 catch(exc){
      if (currentBuild.result == 'UNSTABLE') {
