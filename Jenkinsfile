@@ -57,7 +57,7 @@ sh 'cp /var/lib/jenkins/workspace/pipeline/project/target/project-1.0-RAMA.war .
 }
 	    
 	    stage('deploy on Kubernetes cluster'){
-sh 'kubectl -version'
+sh 'kubectl version'
 		    sh 'kubectl delete -f tomcatwarservice.yaml'
 		    sh 'kubectl delete -f tomcatwardeployment.yaml'
 		    sh 'kubectl create -f tomcatwardeployment.yaml'
