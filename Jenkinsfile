@@ -55,16 +55,6 @@ sh 'cp /var/lib/jenkins/workspace/pipeline/project/target/project-1.0-RAMA.war .
 }
 
 }
-	    
-	    stage('deploy on Kubernetes cluster'){
-sh 'kubectl version'
-		    //sh 'kubectl delete -f tomcatwarservice.yaml'
-		    //sh 'kubectl delete -f tomcatwardeployment.yaml'
-		    //sh 'kubectl create -f tomcatwardeployment.yaml'
-		    //sh 'kubectl create -f tomcatwarservice.yaml'
-		    sh 'kubectl set image deployments/tomcatwar-deployment tomcatwar-conatiner=nikhilketagani/tomcatwar:${BUILD_NUMBER}'
-		    sh 'kubectl rollout status deployment tomcatwar-deployment'
-}
 }
 
 catch(exc){
@@ -86,5 +76,6 @@ catch(exc){
 }
 
  }
+ 
  
  
