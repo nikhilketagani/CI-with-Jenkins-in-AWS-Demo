@@ -6,12 +6,12 @@ node('jenkinsslave22') {
        //Get some code from a GitHub repository
       git 'https://github.com/nikhilketagani/CI-with-Jenkins-in-AWS-Demo.git'
       // Get the Maven tool.
-      // ** NOTE: This 'M3' Maven tool must be configured
+      // ** NOTE: This 'Maven361' Maven tool must be configured
       // **       in the global configuration.           
       mvnHome = tool 'Maven361'
    }   
    stage('Unit Test') {
-       // Run the maven build
+       // Run the maven test
        withEnv(["MVN_HOME=$mvnHome"]) {
           if (isUnix()) {
              sh '"$MVN_HOME/bin/mvn" -Dmaven.test.failure.ignore clean test' ;
@@ -49,7 +49,7 @@ sh 'cp /var/lib/jenkins/workspace/pipeline/project/target/project-1.0-RAMA.war .
  sh 'docker build -t nikhilketagani/tomcatwar:${BUILD_NUMBER} .' 
  sh 'docker image ls'
  withCredentials([usernamePassword(credentialsId: 'b6a33171-7108-4d7c-b94f-5c533b4d3af6', passwordVariable: 'password', usernameVariable: 'username')]) {
-    // some block
+   
 	sh 'docker login -u=${username}  -p=${password}'
 	sh 'docker push nikhilketagani/tomcatwar:${BUILD_NUMBER}'
 }
@@ -57,20 +57,24 @@ sh 'cp /var/lib/jenkins/workspace/pipeline/project/target/project-1.0-RAMA.war .
 }
 	    	    stage('deploy on Kubernetes cluster'){
 sh 'kubectl version'
+			    //for deployment of new pods with conatiners
 		    //sh 'kubectl delete -f tomcatwarservice.yaml'
 		    //sh 'kubectl delete -f tomcatwardeployment.yaml'
 		    //sh 'kubectl create -f tomcatwardeployment.yaml'
 		    //sh 'kubectl create -f tomcatwarservice.yaml'
+			    //for rollout update of current containers in pods with newly build container
 		    sh 'kubectl set image deployments/tomcatwar-deployment tomcatwar-conatiner=nikhilketagani/tomcatwar:${BUILD_NUMBER}'
 		    sh 'kubectl rollout status deployment tomcatwar-deployment'
 }
 }
 
 catch(exc){
+	//catching the failure and set the currentBuild result to failure
     currentBuild.result = 'FAILURE'
 		throw exc 
 }
         finally {
+		//send email notification for both build failure and build success
      if (currentBuild.result == 'SUCCESS'||currentBuild.result == null) {
             mail to: 'ksnnarsy@gmail.com',
              subject: "$JOB_NAME - Build # $BUILD_NUMBER - SUCCESS!",
