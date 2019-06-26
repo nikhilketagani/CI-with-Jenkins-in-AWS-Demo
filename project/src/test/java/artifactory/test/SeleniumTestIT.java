@@ -15,7 +15,7 @@ public class SeleniumTestIT {
 	ChromeOptions chromeOptions;
 
 	public SeleniumTestIT() {
-		System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver");
+		System.setProperty("webdriver.chrome.driver", "src/main/Webapp/images/chromedriver");
 		chromeOptions = new ChromeOptions();
 		chromeOptions.addArguments("--headless","--no-sandbox","--disable-dev-shm-usage");
 	}
