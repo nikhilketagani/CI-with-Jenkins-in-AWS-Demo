@@ -60,11 +60,11 @@ sh 'kubectl version'
 			    //for deployment of new pods with conatiners
 		    //sh 'kubectl delete -f tomcatwarservice.yaml'
 		    //sh 'kubectl delete -f tomcatwardeployment.yaml'
-		    sh 'kubectl create -f tomcatwardeployment.yaml'
-		    sh 'kubectl create -f tomcatwarservice.yaml'
+		    //sh 'kubectl create -f tomcatwardeployment.yaml'
+		    //sh 'kubectl create -f tomcatwarservice.yaml'
 			    //for rollout update of current containers in pods with newly build container
-		  //  sh 'kubectl set image deployments/tomcatwar-deployment tomcatwar-conatiner=nikhilketagani/tomcatwar:${BUILD_NUMBER}'
-		  //  sh 'kubectl rollout status deployment tomcatwar-deployment'
+		   sh 'kubectl set image deployments/tomcatwar-deployment tomcatwar-conatiner=nikhilketagani/tomcatwar:${BUILD_NUMBER}'
+		    sh 'kubectl rollout status deployment tomcatwar-deployment'
 }
 }
 
