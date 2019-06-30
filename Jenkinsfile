@@ -70,7 +70,7 @@ sh 'kubectl version'
 	    stage('Selenium Testing'){
 		      withEnv(["MVN_HOME=$mvnHome"]) {
 sh '"$MVN_HOME/bin/mvn"  -Dmaven.test.failure.ignore  clean verify'
-		     junit 'target/failsafe-reports/**/*.xml'
+		     junit '/target/failsafe-reports/*.xml'
 		      }    
 }
     }
