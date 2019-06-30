@@ -7,9 +7,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+
 public class SeleniumTestIT {
 	private static WebDriver driver;
 	ChromeOptions chromeOptions;
@@ -20,7 +20,7 @@ public class SeleniumTestIT {
 		chromeOptions.addArguments("--headless","--no-sandbox","--disable-dev-shm-usage");
 	}
 	@Test
-	public void isGooglePageLoading() throws InterruptedException {
+	public void setup() throws InterruptedException {
 		driver = new ChromeDriver(chromeOptions);
 		driver.get("http://34.93.73.76/project-1.0-RAMA/");
 		driver.manage().window().maximize();
@@ -32,13 +32,13 @@ public class SeleniumTestIT {
 	  @Test
   public void checkImageDisplayed(){
 	  Boolean isDisplayed =driver.findElement(By.xpath("/html/body/table/tbody/tr/td[1]/img")).isDisplayed();
-	  Assert.assertTrue(isDisplayed, "image is not displayed on page");
+	  assertTrue(isDisplayed, "image is not displayed on page");
   }
 	 @Test
   public void checkText(){
 	  WebElement textelement =driver.findElement(By.xpath("/html/body/table/tbody/tr/td[2]/h1"));
 	  String text =textelement.getText();
-	  Assert.assertEquals(text,"Hello DevOps Engineers and Architects!");
+	assertEquals(text,"Hello DevOps Engineers and Architects!");
 	    driver.quit();
   }
 	
