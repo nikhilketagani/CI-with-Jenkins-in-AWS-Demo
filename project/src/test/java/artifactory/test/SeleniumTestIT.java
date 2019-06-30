@@ -22,16 +22,26 @@ public class SeleniumTestIT {
 	@Test
 	public void isGooglePageLoading() throws InterruptedException {
 		driver = new ChromeDriver(chromeOptions);
-		driver.get("https://www.google.com/xhtml");
+		driver.get("http://34.93.73.76/project-1.0-RAMA/");
 		driver.manage().window().maximize();
-		Thread.sleep(5000);
-		WebElement searchBox = driver.findElement(By.name("q"));
-		searchBox.sendKeys("ChromeDriver");
-		searchBox.submit();
+		
+		
 		Thread.sleep(5000); // Let the user actually see something!
-		driver.quit();
+		
 	}
-
+	  @Test
+  public void checkImageDisplayed(){
+	  Boolean isDisplayed =driver.findElement(By.xpath("/html/body/table/tbody/tr/td[1]/img")).isDisplayed();
+	  Assert.assertTrue(isDisplayed, "image is not displayed on page");
+  }
+	 @Test
+  public void checkText(){
+	  WebElement textelement =driver.findElement(By.xpath("/html/body/table/tbody/tr/td[2]/h1"));
+	  String text =textelement.getText();
+	  Assert.assertEquals(text,"Hello DevOps Engineers and Architects!");
+	    driver.quit();
+  }
+	
 	/* @Test
 	public void isPageTitleCorrect() throws InterruptedException {
 		driver = new ChromeDriver(chromeOptions);		
