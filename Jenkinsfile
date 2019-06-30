@@ -68,9 +68,10 @@ sh 'kubectl version'
 }
 	   
 	    stage('Selenium Testing'){
-sh 'mvn clean verify'
+		      withEnv(["MVN_HOME=$mvnHome"]) {
+sh '"$MVN_HOME/bin/mvn"  -Dmaven.test.failure.ignore mvn clean verify'
 		     junit 'target/failsafe-reports/**/*.xml'
-		    
+		      }    
 }
     }
 catch(exc){
