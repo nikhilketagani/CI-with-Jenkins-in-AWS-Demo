@@ -32,7 +32,7 @@ public class SeleniumTestIT {
 	  @Test
   public void checkImageDisplayed(){
 	  Boolean isDisplayed =driver.findElement(By.xpath("/html/body/table/tbody/tr/td[1]/img")).isDisplayed();
-	  assertTrue(isDisplayed, "image is not displayed on page");
+	  assertTrue(isDisplayed, true);
   }
 	 @Test
   public void checkText(){
