@@ -31,20 +31,20 @@ public class SeleniumTestIT {
 		Thread.sleep(5000); // Let the user actually see something!
 		
 	}
-	  @Test
-  public void checkImageDisplayed(){
+// 	  @Test
+//   public void checkImageDisplayed(){
 	  
-	  WebElement ImageFile = driver.findElement(By.xpath("/html/body/table/tbody/tr/td[1]/img"));
-	  Boolean ImagePresent = (Boolean) ((JavascriptExecutor)driver).executeScript("return arguments[0].complete && typeof arguments[0].naturalWidth != \"undefined\" && arguments[0].naturalWidth > 0", ImageFile);
-// 	  try{
-// 	  Boolean isDisplayed =driver.findElement(By.xpath("/html/body/table/tbody/tr/td[1]/img")).isDisplayed();
+// 	  WebElement ImageFile = driver.findElement(By.xpath("/html/body/table/tbody/tr/td[1]/img"));
+// 	  Boolean ImagePresent = (Boolean) ((JavascriptExecutor)driver).executeScript("return arguments[0].complete && typeof arguments[0].naturalWidth != \"undefined\" && arguments[0].naturalWidth > 0", ImageFile);
+// // 	  try{
+// // 	  Boolean isDisplayed =driver.findElement(By.xpath("/html/body/table/tbody/tr/td[1]/img")).isDisplayed();
+// // 	  }
+// // 	  catch(NullPointerException ex){
+// // 	  }
+// 	  if(ImagePresent !=null){
+// 	  assertTrue(ImagePresent );
 // 	  }
-// 	  catch(NullPointerException ex){
-// 	  }
-	  if(ImagePresent !=null){
-	  assertTrue(ImagePresent );
-	  }
-  }
+//   }
 	 @Test
   public void checkText(){
 	  WebElement textelement =driver.findElement(By.xpath("/html/body/table/tbody/tr/td[2]/h1"));
