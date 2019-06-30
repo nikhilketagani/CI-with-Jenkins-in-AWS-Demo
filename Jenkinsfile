@@ -66,12 +66,13 @@ sh 'kubectl version'
 		   sh 'kubectl set image deployments/tomcatwar-deployment tomcatwar-conatiner=nikhilketagani/tomcatwar:${BUILD_NUMBER}'
 		    sh 'kubectl rollout status deployment tomcatwar-deployment'
 }
+	   
 	    stage('Selenium Testing'){
 sh 'mvn clean verify'
 		     junit 'target/failsafe-reports/**/*.xml'
 		    
 }
-
+    }
 catch(exc){
 	//catching the failure and set the currentBuild result to failure
     currentBuild.result = 'FAILURE'
