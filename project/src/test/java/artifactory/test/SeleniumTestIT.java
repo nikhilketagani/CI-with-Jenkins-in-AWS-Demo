@@ -42,7 +42,7 @@ public class SeleniumTestIT {
 // 	  catch(NullPointerException ex){
 // 	  }
 	  if(ImagePresent !=null){
-	  assertTrue(isDisplayed);
+	  assertTrue(ImagePresent );
 	  }
   }
 	 @Test
