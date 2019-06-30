@@ -32,13 +32,13 @@ public class SeleniumTestIT {
 	  @Test
   public void checkImageDisplayed(){
 	  Boolean isDisplayed =driver.findElement(By.xpath("/html/body/table/tbody/tr/td[1]/img")).isDisplayed();
-	  assertTrue(isDisplayed, true);
+	  assertTrue(isDisplayed);
   }
 	 @Test
   public void checkText(){
 	  WebElement textelement =driver.findElement(By.xpath("/html/body/table/tbody/tr/td[2]/h1"));
 	  String text =textelement.getText();
-	assertEquals(text,"Hello DevOps Engineers and Architects!");
+	assertEquals("Hello DevOps Engineers and Architects!",text);
 	    driver.quit();
   }
 	
